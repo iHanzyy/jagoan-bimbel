@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMateriRequest;
 use App\Http\Resources\MateriCollection;
 use App\Http\Resources\MateriResource;
+use App\Models\FileMateri;
 use App\Services\MateriService;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\JsonResponse;
@@ -30,9 +31,9 @@ final class AdminMateriController extends Controller
         ));
     }
 
-    public function show(int $id): MateriResource
+    public function show(FileMateri $fileMateri): MateriResource
     {
-        return (new MateriResource($this->materiService->findById($id)))
+        return (new MateriResource($this->materiService->findById((int) $fileMateri->getKey())))
             ->additional(['meta' => [], 'message' => 'Detail materi berhasil diambil.']);
     }
 
@@ -48,9 +49,9 @@ final class AdminMateriController extends Controller
             ->setStatusCode(Response::HTTP_CREATED);
     }
 
-    public function download(int $id): StreamedResponse
+    public function download(FileMateri $fileMateri): StreamedResponse
     {
-        $downloadable = $this->materiService->getDownloadable($id);
+        $downloadable = $this->materiService->getDownloadable((int) $fileMateri->getKey());
 
         /** @var FilesystemAdapter $disk */
         $disk = Storage::disk($downloadable->disk);

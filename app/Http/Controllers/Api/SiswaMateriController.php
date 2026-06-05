@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MateriCollection;
 use App\Http\Resources\MateriResource;
+use App\Models\FileMateri;
 use App\Services\MateriService;
 use Illuminate\Http\Request;
 
@@ -24,9 +25,9 @@ final class SiswaMateriController extends Controller
         ));
     }
 
-    public function show(int $id): MateriResource
+    public function show(FileMateri $fileMateri): MateriResource
     {
-        return (new MateriResource($this->materiService->findById($id)))
+        return (new MateriResource($this->materiService->findById((int) $fileMateri->getKey())))
             ->additional(['meta' => [], 'message' => 'Detail materi berhasil diambil.']);
     }
 }
