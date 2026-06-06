@@ -27,14 +27,6 @@
             </div>
 
             <div class="rounded-[26px] border border-[#DCE6F2] bg-white px-6 py-9 shadow-[0_18px_45px_rgba(21,45,75,0.08)] sm:px-10 sm:py-10 md:px-10">
-                <div
-                    x-show="errorMessage"
-                    x-cloak
-                    x-transition
-                    class="mb-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
-                >
-                    <span x-text="errorMessage"></span>
-                </div>
 
                 <form class="space-y-5" @submit.prevent="submit">
                     <div>

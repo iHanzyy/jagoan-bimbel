@@ -6,8 +6,6 @@ namespace App\Data;
 
 use App\Enums\MateriType;
 use App\Models\FileMateri;
-use Illuminate\Filesystem\FilesystemAdapter;
-use Illuminate\Support\Facades\Storage;
 
 final readonly class MateriData
 {
@@ -49,9 +47,7 @@ final readonly class MateriData
             return null;
         }
 
-        /** @var FilesystemAdapter $disk */
-        $disk = Storage::disk('public');
-        return $disk->url($materi->file_path);
+        return '/storage/' . ltrim((string) $materi->file_path, '/');
     }
 
     private static function resolveYoutubeEmbedUrl(?string $url): ?string

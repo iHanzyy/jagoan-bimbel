@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateMateriRequest;
 use App\Http\Resources\MateriCollection;
 use App\Http\Resources\MateriResource;
 use App\Models\FileMateri;
+use App\Models\User;
 use App\Services\MateriService;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\JsonResponse;
@@ -28,6 +29,7 @@ final class AdminMateriController extends Controller
     public function index(Request $request): MateriCollection
     {
         return new MateriCollection($this->materiService->list(
+            role: $this->userRole($request),
             page: (int) $request->integer('page', 1),
         ));
     }
@@ -74,5 +76,13 @@ final class AdminMateriController extends Controller
             path: $downloadable->path,
             name: $downloadable->downloadName,
         );
+    }
+
+    private function userRole(Request $request): string
+    {
+        /** @var User $user */
+        $user = $request->user();
+
+        return (string) $user->role;
     }
 }

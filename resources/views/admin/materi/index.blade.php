@@ -1,26 +1,20 @@
 <x-layouts.app title="Admin Materi - Jagoan Bimbel">
     <section x-data="adminMateriIndex()" x-init="init()" class="min-h-screen bg-[#F5F5F5]">
-        <x-admin.navbar />
+        <x-dashboard.navbar role="admin" dashboard-href="/admin/materi" />
 
         <div class="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-10">
-            <header
-                class="mb-8 flex flex-col gap-5 rounded-2xl border border-[#DCE6F2] bg-white p-6 shadow-[0_18px_45px_rgba(21,45,75,0.08)] md:flex-row md:items-center md:justify-between lg:p-8">
-                <div>
-                    <p class="text-sm font-bold text-[#1591DC]">Dashboard Admin</p>
-                    <h1 class="mt-2 text-3xl font-extrabold leading-tight text-[#001A41] sm:text-4xl">Manajemen Soal
-                    </h1>
-                    <p class="mt-3 max-w-2xl text-sm font-medium leading-6 text-slate-600 sm:text-base">
-                        Kelola soal PDF, gambar, dan link Youtube untuk siswa.
-                    </p>
-                </div>
-
-                <div class="flex flex-col">
+            <x-dashboard.header
+                eyebrow="Dashboard Admin"
+                title="Manajemen Soal"
+                description="Kelola soal PDF, gambar, dan link Youtube untuk siswa."
+            >
+                <x-slot:actions>
                     <a href="/admin/materi/create"
                         class="inline-flex items-center justify-center rounded-xl bg-[#1591DC] px-5 py-3 text-sm font-bold text-white shadow-[0_10px_20px_rgba(21,145,220,0.20)] transition hover:bg-[#2C5EAD]">
                         Upload Soal
                     </a>
-                </div>
-            </header>
+                </x-slot:actions>
+            </x-dashboard.header>
 
             <div
                 class="overflow-hidden rounded-2xl border border-[#DCE6F2] bg-white shadow-[0_18px_45px_rgba(21,45,75,0.08)]">

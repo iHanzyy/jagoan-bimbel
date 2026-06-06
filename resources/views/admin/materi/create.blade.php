@@ -1,6 +1,6 @@
 <x-layouts.app title="Upload Materi - Jagoan Bimbel">
     <section x-data="adminMateriCreate()" x-init="guardAdmin()" class="min-h-screen bg-[#F5F5F5]">
-        <x-admin.navbar />
+        <x-dashboard.navbar role="admin" dashboard-href="/admin/materi" />
 
         <div class="mx-auto max-w-5xl px-5 py-8 sm:px-8 lg:px-10">
             <a href="/admin/materi" class="mb-4 inline-flex items-center text-sm font-bold text-[#1591DC] transition hover:text-[#2C5EAD]">

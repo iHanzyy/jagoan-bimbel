@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\MateriCollection;
 use App\Http\Resources\MateriResource;
 use App\Models\FileMateri;
+use App\Models\User;
 use App\Services\MateriService;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,7 @@ final class SiswaMateriController extends Controller
     public function index(Request $request): MateriCollection
     {
         return new MateriCollection($this->materiService->list(
+            role: $this->userRole($request),
             page: (int) $request->integer('page', 1),
         ));
     }
@@ -29,5 +31,13 @@ final class SiswaMateriController extends Controller
     {
         return (new MateriResource($this->materiService->findById((int) $fileMateri->getKey())))
             ->additional(['meta' => [], 'message' => 'Detail materi berhasil diambil.']);
+    }
+
+    private function userRole(Request $request): string
+    {
+        /** @var User $user */
+        $user = $request->user();
+
+        return (string) $user->role;
     }
 }
