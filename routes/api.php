@@ -23,6 +23,12 @@ Route::middleware(['auth:sanctum', 'role:admin', 'ability:admin'])->group(functi
     Route::post('/upload-materi', [AdminMateriController::class, 'store'])
         ->middleware('can:create,' . FileMateri::class);
 
+    Route::put('/update-materi/{fileMateri}', [AdminMateriController::class, 'update'])
+        ->middleware('can:update,fileMateri');
+
+    Route::delete('/delete-materi/{fileMateri}', [AdminMateriController::class, 'destroy'])
+        ->middleware('can:delete,fileMateri');
+
     Route::get('/materi-download/{fileMateri}', [AdminMateriController::class, 'download'])
         ->middleware('can:download,fileMateri');
 });

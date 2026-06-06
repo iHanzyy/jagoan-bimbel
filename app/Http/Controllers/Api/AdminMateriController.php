@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMateriRequest;
+use App\Http\Requests\UpdateMateriRequest;
 use App\Http\Resources\MateriCollection;
 use App\Http\Resources\MateriResource;
 use App\Models\FileMateri;
@@ -47,6 +48,19 @@ final class AdminMateriController extends Controller
             ->additional(['meta' => [], 'message' => 'Materi berhasil diunggah.'])
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
+    }
+
+    public function update(UpdateMateriRequest $request, FileMateri $fileMateri): MateriResource
+    {
+        return (new MateriResource($this->materiService->update((int) $fileMateri->getKey(), $request->toUpdateData())))
+            ->additional(['meta' => [], 'message' => 'Materi berhasil diperbarui.']);
+    }
+
+    public function destroy(FileMateri $fileMateri): JsonResponse
+    {
+        $this->materiService->delete((int) $fileMateri->getKey());
+
+        return response()->json(['data' => null, 'meta' => [], 'message' => 'Materi berhasil dihapus.']);
     }
 
     public function download(FileMateri $fileMateri): StreamedResponse
